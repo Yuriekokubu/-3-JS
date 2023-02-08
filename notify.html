@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    if ("Notification" in window) {
+        if (Notification.permission === 'granted') {
+            notify();
+        } else {
+            Notification.requestPermission().then((res) => {
+                if (res === "granted") {
+                    notify();
+                } else if (res === "denied") {
+                    console.log('Notification access denied');
+                } else if (res === "default") {
+                    console.log('Notification permission not given');
+                }
+            });
+        }
+    } else {
+        console.error("Notification not supported");
+    }
+
+    function notify(params) {
+        const notification = new Notification("Hello", {
+            body: "Learn how to use Noti",
+            icon: './apple.png',
+            vibrate: [200, 100, 200]
+        });
+        notification.addEventListener('click', () => window.open('https://www.google.co.th'));
+    }
+
+</script>
+
+</html>
